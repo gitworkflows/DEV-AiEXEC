@@ -103,7 +103,7 @@ For example:
           - aiexec-postgres:/var/lib/postgresql/data
 
       aiexec-1:
-        image: aiexecai/aiexec:latest
+        image: khulnasoft/aiexec:latest
         pull_policy: always
         ports:
           - "${AIEXEC_PORT_1}:7860"
@@ -118,7 +118,7 @@ For example:
           - aiexec-data-1:/app/aiexec
 
       aiexec-2:
-        image: aiexecai/aiexec:latest
+        image: khulnasoft/aiexec:latest
         pull_policy: always
         ports:
           - "${AIEXEC_PORT_2}:7860"

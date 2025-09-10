@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Aiexec",
-    "version": "1.5.0.post1"
+    "version": "1.5.1"
   },
   "paths": {
     "/api/v1/build/{flow_id}/vertices": {
@@ -11302,7 +11302,7 @@
             "type": "string",
             "title": "Password"
           },
-          "options": {
+          "optins": {
             "anyOf": [
               {
                 "type": "object"
@@ -11311,7 +11311,7 @@
                 "type": "null"
               }
             ],
-            "title": "Options",
+            "title": "Optins",
             "default": {
               "github_starred": false,
               "dialog_dismissed": false,
@@ -11389,7 +11389,7 @@
             ],
             "title": "Last Login At"
           },
-          "options": {
+          "optins": {
             "anyOf": [
               {
                 "type": "object"
@@ -11398,7 +11398,7 @@
                 "type": "null"
               }
             ],
-            "title": "Options"
+            "title": "Optins"
           }
         },
         "type": "object",
@@ -11483,7 +11483,7 @@
             ],
             "title": "Last Login At"
           },
-          "options": {
+          "optins": {
             "anyOf": [
               {
                 "type": "object"
@@ -11492,7 +11492,7 @@
                 "type": "null"
               }
             ],
-            "title": "Options"
+            "title": "Optins"
           }
         },
         "type": "object",

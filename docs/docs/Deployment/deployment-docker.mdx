@@ -20,7 +20,7 @@ This option provides more control over the configuration, including a persistent
 With Docker installed and running on your system, run the following command:
 
 ```shell
-docker run -p 7860:7860 aiexecai/aiexec:latest
+docker run -p 7860:7860 khulnasoft/aiexec:latest
 ```
 
 Then, access Aiexec at `http://localhost:7860/`.
@@ -123,7 +123,7 @@ Unlike the previous sections that use pre-built images, this method builds a cus
 3. Create a Dockerfile to build your custom image:
 
     ```dockerfile
-    FROM aiexecai/aiexec:latest
+    FROM khulnasoft/aiexec:latest
     RUN mkdir /app/flows
     COPY ./*.json /app/flows/
     ENV AIEXEC_LOAD_FLOWS_PATH=/app/flows
@@ -153,13 +153,13 @@ While the previous section showed how to package a flow with a Docker image, thi
 This example demonstrates how to customize the **Message History** component, but the same approach can be used for any code modifications.
 
 ```dockerfile
-FROM aiexecai/aiexec:latest
+FROM khulnasoft/aiexec:latest
 
 # Set working directory
 WORKDIR /app
 
 # Copy your modified memory component
-COPY api/base/aiexec/components/helpers/memory.py /tmp/memory.py
+COPY src/backend/base/aiexec/components/helpers/memory.py /tmp/memory.py
 
 # Find the site-packages directory where aiexec is installed
 RUN python -c "import site; print(site.getsitepackages()[0])" > /tmp/site_packages.txt
@@ -194,7 +194,7 @@ To use this custom Dockerfile, do the following:
 In this example, Aiexec expects `memory.py` to exist in the `/helpers` directory, so you create a directory in that location.
 
     ```bash
-    mkdir -p api/base/aiexec/components/helpers
+    mkdir -p src/backend/base/aiexec/components/helpers
     ```
 
 3. Place your modified `memory.py` file in the `/helpers` directory.

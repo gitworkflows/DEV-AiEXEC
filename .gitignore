@@ -260,17 +260,17 @@ aiexec.db
 .docusaurus/
 
 /tmp/*
-api/aiexec/frontend/
-api/base/aiexec/frontend/
+src/backend/aiexec/frontend/
+src/backend/base/aiexec/frontend/
 .docker
 scratchpad*
 chroma*/*
 stuff/*
-web/playwright-report/index.html
+src/frontend/playwright-report/index.html
 *.bak
 prof/*
 
-web/temp
+src/frontend/temp
 *-shm
 *-wal
 .history
@@ -278,3 +278,6 @@ web/temp
 .dspy_cache/
 *.db
 *.mcp.json
+
+news-aggregated.json
+CLAUDE.md

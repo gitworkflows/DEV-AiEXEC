@@ -8,7 +8,7 @@ Aiexec provides optional dependency groups and support for custom dependencies t
 The Aiexec codebase uses two `pyproject.toml` files to manage dependencies, with one for `base` and one for `main`:
 
 * The `main` package is managed by the root level `pyproject.toml`, and it includes end-user features and main application code, such as Langchain and OpenAI.
-* The `base` package is managed at `api/base/pyproject.toml`, and it includes core infrastructure, such as the FastAPI web framework.
+* The `base` package is managed at `src/backend/base/pyproject.toml`, and it includes core infrastructure, such as the FastAPI web framework.
 
 ## Install custom dependencies in Aiexec Desktop {#aiexec-desktop}
 
@@ -89,14 +89,14 @@ uv add matplotlib
 
 Dependencies can be added to the `main` package as regular dependencies at `[project.dependencies]` or optional dependencies at `[project.optional-dependencies]`.
 
-To add a dependency to the `base` package, navigate to `api/base` and run:
+To add a dependency to the `base` package, navigate to `src/backend/base` and run:
 ```bash
-cd api/base && uv add DEPENDENCY
+cd src/backend/base && uv add DEPENDENCY
 ```
 
-To add a development dependency for testing, linting, or debugging, navigate to `api/base` and run:
+To add a development dependency for testing, linting, or debugging, navigate to `src/backend/base` and run:
 ```bash
-cd api/base && uv add --group dev DEPENDENCY
+cd src/backend/base && uv add --group dev DEPENDENCY
 ```
 
 Dependencies can be added to the `base` package as regular dependencies at `[project.dependencies]`, development dependencies at `[dependency-groups.dev]`, or optional dependencies at `[project.optional-dependencies]`.
@@ -107,10 +107,10 @@ You can optionally use `make add` instead of `uv add`:
 # Equivalent to: uv add matplotlib
 make add main="matplotlib"
 
-# Equivalent to: cd api/base && uv add --group dev matplotlib
+# Equivalent to: cd src/backend/base && uv add --group dev matplotlib
 make add devel="matplotlib"
 
-# Equivalent to: cd api/base && uv add matplotlib
+# Equivalent to: cd src/backend/base && uv add matplotlib
 make add base="matplotlib"
 ```
 

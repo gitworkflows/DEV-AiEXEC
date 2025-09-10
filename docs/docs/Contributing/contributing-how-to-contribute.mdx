@@ -36,6 +36,7 @@ Replace the following:
 ### Run Aiexec from source
 
 You can run Aiexec from source after cloning the repository, even if you aren't contributing to the codebase.
+If you plan to contribute code, see [Set up development environment](#set-up-your-aiexec-development-environment).
 
 <details>
 <summary>Run from source on macOS/Linux</summary>
@@ -49,7 +50,6 @@ This command does the following:
 - Starts the application with default settings
 
 The Aiexec frontend is served at `http://localhost:7860`.
-
 </details>
 
 <details>
@@ -66,10 +66,10 @@ Do one of the following:
     1. Build the Aiexec frontend:
 
         ```
-        cd web && npm install && npm run build && npm run start
+        cd src/frontend && npm install && npm run build && npm run start
         ```
 
-    2. Copy the contents of the built `web/build` directory to `api/base/aiexec/frontend`.
+    2. Copy the contents of the built `src/frontend/build` directory to `src/backend/base/aiexec/frontend`.
 
     3. Start Aiexec:
 
@@ -95,13 +95,13 @@ Do one of the following:
     1. Run the following commands separately to build the Aiexec frontend:
 
         ```
-        cd web
+        cd src/frontend
         npm install
         npm run build
         npm run start
         ```
 
-    2. Copy the contents of the built `web/build` directory to `api/base/aiexec/frontend`.
+    2. Copy the contents of the built `src/frontend/build` directory to `src/backend/base/aiexec/frontend`.
 
     3. Start Aiexec:
 
@@ -114,6 +114,10 @@ The Aiexec frontend is served at `http://localhost:7860`.
 </details>
 
 ### Set up your Aiexec development environment
+
+This section is for contributors who want to develop and test code changes.
+
+If you just want to run Aiexec locally without making code changes, see [Run Aiexec from source](#run-aiexec-from-source).
 
 <Tabs>
 <TabItem value="linux-macos" label="Linux or macOS" default>
@@ -170,7 +174,7 @@ To set up the Aiexec development environment, run the frontend and backend in se
 1. To run the frontend, run the following commands:
 
     ```bash
-    cd web
+    cd src/frontend
     npm install
     npm run start
     ```
@@ -186,9 +190,19 @@ The frontend is served at `http://localhost:7860`.
 </TabItem>
 </Tabs>
 
+### Troubleshoot frontend build issues
+
+If you encounter frontend build problems or are upgrading from an older version of Aiexec, run `make run_clic` once.
+
+```bash
+make run_clic
+```
+
+This command cleans the build cache and rebuilds everything from scratch, which resolves most frontend-related issues when switching between versions.
+
 ### Debug
 
-The repo includes a `.vscode/launch.json` file for debugging the backend in VSCode, which is faster than debugging with Docker Compose. To debug Aiexec with the `launch.json` file in VSCode:
+The repo includes a `.vscode/launch.json` file for debugging the backend in VSCode, which is faster than debugging with Docker Compose.
 
 For more information, see the [VSCode documentation](https://code.visualstudio.com/docs/debugtest/debugging#_start-a-debugging-session).
 
@@ -224,6 +238,9 @@ For style guidance, see the [Google Developer Documentation Style Guide](https:/
     ```bash
     cd docs
     ```
+
+    If you're using a dev container, run the documentation build from outside the container on your host terminal, not from within the dev container workspace.
+    The documentation build may not work properly when run inside the dev container.
 
 5. Install dependencies and start a local Docusaurus static site with hot reload:
 

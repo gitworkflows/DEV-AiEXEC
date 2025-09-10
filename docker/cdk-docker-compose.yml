@@ -18,7 +18,7 @@ services:
       - aiexec
   frontend:
     build:
-      context: ./web
+      context: ./src/frontend
       dockerfile: ./cdk.Dockerfile
       args:
         - BACKEND_URL=http://backend:7860
@@ -29,9 +29,9 @@ services:
     ports:
       - "8080:3000"
     volumes:
-      - ./web/public:/home/node/app/public
-      - ./web/src:/home/node/app/src
-      - ./web/package.json:/home/node/app/package.json
+      - ./src/frontend/public:/home/node/app/public
+      - ./src/frontend/src:/home/node/app/src
+      - ./src/frontend/package.json:/home/node/app/package.json
     restart: on-failure
     networks:
       - aiexec

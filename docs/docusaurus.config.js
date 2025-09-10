@@ -18,7 +18,7 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   onBrokenAnchors: "warn",
-  organizationName: "aiexec-ai",
+  organizationName: "khulnasoft-lab",
   projectName: "aiexec",
   trailingSlash: false,
   staticDirectories: ["static"],
@@ -400,13 +400,6 @@ const config = {
         },
       },
       footer: {
-        logo: {
-          alt: "Aiexec",
-          src: "img/lf-docs-light.svg",
-          srcDark: "img/lf-docs-dark.svg",
-          width: 160,
-          height: 40,
-        },
         links: [
           {
             title: null,

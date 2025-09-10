@@ -51,7 +51,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.13"
-  TEST_TAG: "aiexecai/aiexec:test"
+  TEST_TAG: "khulnasoft/aiexec:test"
 
 jobs:
   get-version:
@@ -153,28 +153,28 @@ jobs:
 
           if [[ "${{ inputs.release_type }}" == "base" || "${{ inputs.release_type }}" == "nightly-base" ]]; then
             # AIEXEC-BASE RELEASE
-            echo "docker_tags=aiexecai/aiexec${nightly_suffix}:base-${{ needs.get-version.outputs.version }},aiexecai/aiexec${nightly_suffix}:base-latest" >> $GITHUB_OUTPUT
+            echo "docker_tags=khulnasoft/aiexec${nightly_suffix}:base-${{ needs.get-version.outputs.version }},khulnasoft/aiexec${nightly_suffix}:base-latest" >> $GITHUB_OUTPUT
             echo "ghcr_tags=ghcr.io/khulnasoft-lab/aiexec${nightly_suffix}:base-${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft-lab/aiexec${nightly_suffix}:base-latest" >> $GITHUB_OUTPUT
             echo "file=./docker/build_and_push_base.Dockerfile" >> $GITHUB_OUTPUT
           else
             if [[ "${{ inputs.pre_release }}" == "true" ]]; then
               # AIEXEC-MAIN PRE-RELEASE
-              echo "docker_tags=aiexecai/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }}" >> $GITHUB_OUTPUT
+              echo "docker_tags=khulnasoft/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }}" >> $GITHUB_OUTPUT
               echo "ghcr_tags=ghcr.io/khulnasoft-lab/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }}" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push.Dockerfile" >> $GITHUB_OUTPUT
             elif [[ "${{ inputs.release_type }}" == "main-ep" ]]; then
               # AIEXEC-MAIN (ENTRYPOINT) RELEASE
-              echo "docker_tags=aiexecai/aiexec-ep${nightly_suffix}:${{ needs.get-version.outputs.version }},aiexecai/aiexec-ep${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              echo "docker_tags=khulnasoft/aiexec-ep${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-ep${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "ghcr_tags=ghcr.io/khulnasoft-lab/aiexec-ep${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft-lab/aiexec-ep${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push_ep.Dockerfile" >> $GITHUB_OUTPUT
             elif [[ "${{ inputs.release_type }}" == "main" || "${{ inputs.release_type }}" == "nightly-main" ]]; then
               # AIEXEC-MAIN RELEASE
-              echo "docker_tags=aiexecai/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }},aiexecai/aiexec${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              echo "docker_tags=khulnasoft/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/aiexec${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "ghcr_tags=ghcr.io/khulnasoft-lab/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft-lab/aiexec${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push.Dockerfile" >> $GITHUB_OUTPUT
             elif [[ "${{ inputs.release_type }}" == "main-all" || "${{ inputs.release_type }}" == "nightly-main-all" ]]; then
               # AIEXEC-MAIN (ALL OPTIONAL DEPS) RELEASE
-              echo "docker_tags=aiexecai/aiexec-all${nightly_suffix}:${{ needs.get-version.outputs.version }},aiexecai/aiexec-all${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              echo "docker_tags=khulnasoft/aiexec-all${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-all${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "ghcr_tags=ghcr.io/khulnasoft-lab/aiexec-all${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft-lab/aiexec-all${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push_with_extras.Dockerfile" >> $GITHUB_OUTPUT
             else
@@ -201,7 +201,7 @@ jobs:
       - name: Install the project
         run: |
           if [[ "${{ inputs.release_type }}" == "base" || "${{ inputs.release_type }}" == "nightly-base" ]]; then
-            uv sync --directory api/base --no-dev --no-sources
+            uv sync --directory src/backend/base --no-dev --no-sources
           else
             uv sync --no-dev --no-sources
           fi
@@ -266,12 +266,12 @@ jobs:
         include:
           - component: docker-backend
             dockerfile: ./docker/build_and_push_backend.Dockerfile
-            tags: aiexecai/aiexec-backend:${{ needs.get-version.outputs.version }},aiexecai/aiexec-backend:latest
-            aiexec_image: aiexecai/aiexec:${{ needs.get-version.outputs.version }}
+            tags: khulnasoft/aiexec-backend:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-backend:latest
+            aiexec_image: khulnasoft/aiexec:${{ needs.get-version.outputs.version }}
           - component: docker-frontend
             dockerfile: ./docker/frontend/build_and_push_frontend.Dockerfile
-            tags: aiexecai/aiexec-frontend:${{ needs.get-version.outputs.version }},aiexecai/aiexec-frontend:latest
-            aiexec_image: aiexecai/aiexec:${{ needs.get-version.outputs.version }}
+            tags: khulnasoft/aiexec-frontend:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-frontend:latest
+            aiexec_image: khulnasoft/aiexec:${{ needs.get-version.outputs.version }}
           - component: ghcr-backend
             dockerfile: ./docker/build_and_push_backend.Dockerfile
             tags: ghcr.io/khulnasoft-lab/aiexec-backend:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft-lab/aiexec-backend:latest

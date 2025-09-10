@@ -180,7 +180,7 @@ error: command '/usr/bin/clang++' failed with exit code 1
 | **Nightly/Release** | Published (`aiexec-base-nightly==0.5.0.dev21`) | 420 packages | ✅ Included | ❌ Compilation fails |
 
 **Technical Details**:
-1. **Workspace builds** use local `api/base/pyproject.toml` which excludes `chromadb`
+1. **Workspace builds** use local `src/backend/base/pyproject.toml` which excludes `chromadb`
 2. **Nightly builds** modify dependencies via `scripts/ci/update_uv_dependency.py`:
    - Changes: `aiexec-base~=0.5.0` → `aiexec-base-nightly==0.5.0.dev21`
    - Uses published PyPI package with full dependency tree including `chromadb==0.5.23`
@@ -195,7 +195,7 @@ error: command '/usr/bin/clang++' failed with exit code 1
 **Files Involved**:
 - `scripts/ci/update_uv_dependency.py` - Modifies dependency resolution
 - `scripts/ci/update_pyproject_combined.py` - Orchestrates nightly build changes
-- `pyproject.toml` vs `api/base/pyproject.toml` - Different dependency trees
+- `pyproject.toml` vs `src/backend/base/pyproject.toml` - Different dependency trees
 
 ## Results
 
