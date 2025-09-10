@@ -55,7 +55,7 @@ def main() -> None:
     build_type = sys.argv[2]
 
     if build_type == "base":
-        update_pyproject_name("api/base/pyproject.toml", new_project_name)
+        update_pyproject_name("src/backend/base/pyproject.toml", new_project_name)
         update_uv_dep("pyproject.toml", new_project_name)
     elif build_type == "main":
         update_pyproject_name("pyproject.toml", new_project_name)

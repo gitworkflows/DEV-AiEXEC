@@ -16,12 +16,16 @@ You can set Aiexec environment variables in your terminal, in `.env`, and with t
 
 If an environment variable is set in multiple places, the following hierarchy applies:
 
-1. Aiexec CLI options override `.env` and terminal variables.
-2. `.env` overrides terminal variables.
-3. Terminal variables are used only if the variable isn't set in `.env` or Aiexec CLI options.
+1. Aiexec CLI options override all other sources.
+2. The `.env` file overrides system environment variables.
+3. System environment variables are used only if not set elsewhere.
 
-For example, if you set `AIEXEC_PORT` in `.env` and your terminal, then Aiexec uses the value from `.env`.
-Similarly, if you run a Aiexec CLI command with `--port`, Aiexec uses that port number instead of the `AIEXEC_PORT` in `.env`.
+    When running a Aiexec Docker image, the `-e` flag sets system environment variables.
+
+For example:
+- If you set `AIEXEC_PORT=8080` in your system environment and `AIEXEC_PORT=7860` in `.env`, Aiexec uses `7860` from `.env`.
+- If you run `aiexec run --port 9000` with `AIEXEC_PORT=7860` in `.env`, Aiexec uses `9000` from the CLI option.
+
 
 ## Configure environment variables
 
@@ -59,7 +63,7 @@ set VARIABLE_NAME='VALUE'
 docker run -it --rm \
     -p 7860:7860 \
     -e VARIABLE_NAME='VALUE' \
-    aiexecai/aiexec:latest
+    khulnasoft/aiexec:latest
 ```
 
 </TabItem>
@@ -129,7 +133,7 @@ If it detects a supported environment variable, then it automatically adopts the
     docker run -it --rm \
         -p 7860:7860 \
         --env-file .env \
-        aiexecai/aiexec:latest
+        khulnasoft/aiexec:latest
     ```
 
     </TabItem>
@@ -151,7 +155,7 @@ The following table lists the environment variables supported by Aiexec.
 | `AIEXEC_AUTO_SAVING_INTERVAL` | Integer | `1000` | Set the interval for flow auto-saving in milliseconds. |
 | `AIEXEC_BACKEND_ONLY` | Boolean | False | Run only the Aiexec backend service (no frontend). |
 | `AIEXEC_BUNDLE_URLS` | List[String] | `[]` | A list of URLs from which to load component bundles and flows. Supports GitHub URLs. If AIEXEC_AUTO_LOGIN is enabled, flows from these bundles are loaded into the database. |
-| `AIEXEC_CACHE_TYPE` | String | `async` | Set the cache type for Aiexec. Possible values: `async`, `redis`, `memory`, `disk`. If you set the type to `redis`, then you must also set the following environment variables: `AIEXEC_REDIS_HOST`, `AIEXEC_REDIS_PORT`, `AIEXEC_REDIS_DB`, and `AIEXEC_REDIS_CACHE_EXPIRE`. |
+| `AIEXEC_CACHE_TYPE` | String | `async` | Set the cache type for Aiexec. Possible values: `async`, `redis`, `memory`, `disk`. If you set the type to `redis`, then you must also set the following environment variables: `AIEXEC_REDIS_HOST`, `AIEXEC_REDIS_PORT`, `AIEXEC_REDIS_DB`, and `AIEXEC_REDIS_CACHE_EXPIRE`. See also [`aiexec run`](/configuration-cli#aiexec-run). |
 | `AIEXEC_COMPONENTS_PATH` | String | Not set | Path to the directory containing custom components. |
 | `AIEXEC_CONFIG_DIR` | String | Varies | Set the Aiexec configuration directory where files, logs, and the Aiexec database are stored. Default path depends on your installation. See [Flow storage and logs](/concepts-flows#flow-storage-and-logs). |
 | `AIEXEC_DATABASE_URL` | String | Not set | Set the database URL for Aiexec. If not provided, Aiexec uses a SQLite database. |
@@ -163,14 +167,14 @@ The following table lists the environment variables supported by Aiexec.
 | `AIEXEC_DISABLE_TRACK_APIKEY_USAGE` | Boolean | False | Whether to track API key usage. If true, disables tracking of API key usage (`total_uses` and `last_used_at`) to avoid database contention under high concurrency. |
 | `AIEXEC_ENABLE_SUPERUSER_CLI` | Boolean | True | Allow creation of superusers with the Aiexec CLI command [`aiexec superuser`](./configuration-cli.mdx#aiexec-superuser). Recommended to be disabled (false) in production for security reasons. |
 | `AIEXEC_FALLBACK_TO_ENV_VAR` | Boolean | True | If enabled, [global variables](/configuration-global-variables) set in your Aiexec **Settings** can use an environment variable with the same name if Aiexec can't retrieve the variable value from the global variables. |
-| `AIEXEC_FRONTEND_PATH` | String | `./frontend` | Path to the frontend directory containing build files. This is for development purposes only. See [`--frontend-path`](./configuration-cli.mdx#run-frontend-path). |
-| `AIEXEC_HEALTH_CHECK_MAX_RETRIES` | Integer | `5` | Set the maximum number of retries for the health check. See [`--health-check-max-retries`](./configuration-cli.mdx#run-health-check-max-retries). |
-| `AIEXEC_HOST` | String | `localhost` | The host on which the Aiexec server will run. See [`--host`](./configuration-cli.mdx#run-host). |
-| `AIEXEC_LANGCHAIN_CACHE` | String | `InMemoryCache` | Type of cache to use. Possible values: `InMemoryCache`, `SQLiteCache`. See [`--cache`](./configuration-cli.mdx#run-cache). |
+| `AIEXEC_FRONTEND_PATH` | String | `./frontend` | Path to the frontend directory containing build files. This is for development purposes only. See [`aiexec run`](/configuration-cli#aiexec-run). |
+| `AIEXEC_HEALTH_CHECK_MAX_RETRIES` | Integer | `5` | Set the maximum number of retries for the health check. See [`aiexec run`](/configuration-cli#aiexec-run). |
+| `AIEXEC_HOST` | String | `localhost` | The host on which the Aiexec server will run. See [`aiexec run`](/configuration-cli#aiexec-run). |
+| `AIEXEC_LANGCHAIN_CACHE` | String | `InMemoryCache` | Type of cache storage to use, separate from `AIEXEC_CACHE_TYPE`. Possible values: `InMemoryCache`, `SQLiteCache`. |
 | `AIEXEC_LOG_LEVEL` | String | `INFO` | Set the logging level for Aiexec. Possible values: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`. |
 | `AIEXEC_LOG_FILE` | String | Not set | Path to the log file. If this option isn't set, logs are written to stdout. |
 | `AIEXEC_LOG_RETRIEVER_BUFFER_SIZE` | Integer | `10000` | Set the buffer size for log retrieval. Only used if `AIEXEC_ENABLE_LOG_RETRIEVAL` is enabled. |
-| `AIEXEC_MAX_FILE_SIZE_UPLOAD` | Integer | `100` | Set the maximum file size for the upload in megabytes. See [`--max-file-size-upload`](./configuration-cli.mdx#run-max-file-size-upload). |
+| `AIEXEC_MAX_FILE_SIZE_UPLOAD` | Integer | `100` | Set the maximum file size for the upload in megabytes. See [`aiexec run`](/configuration-cli#aiexec-run). |
 | `AIEXEC_MAX_ITEMS_LENGTH` | Integer | `100` | Maximum number of items to store and display in the visual editor. Lists longer than this will be truncated when displayed in the visual editor. Doesn't affect data passed between components nor outputs. |
 | `AIEXEC_MAX_TEXT_LENGTH` | Integer | `1000` | Maximum number of characters to store and display in the visual editor. Responses longer than this will be truncated when displayed in the visual editor. Doesn't truncate responses between components nor outputs. |
 | `AIEXEC_MCP_SERVER_ENABLED` | Boolean | True | If this option is set to False, Aiexec doesn't enable the MCP server. |
@@ -446,7 +450,7 @@ To define environment variables for Windows using PowerShell, do the following:
     [System.Environment]::SetEnvironmentVariable("AIEXEC_CONFIG_DIR", "C:\Users\your_user\.aiexec_config", "User")
     ```
 
-   To set an environment variable for all users (you must have Administrator privileges):
+   To set an environment variable for all users (you must have Administrator priveleges):
    ```powershell
    [System.Environment]::SetEnvironmentVariable("AIEXEC_CONFIG_DIR", "C:\Aiexec\Config", "Machine")
    ```

@@ -1,3 +1,3 @@
-FROM aiexecai/aiexec:latest
+FROM khulnasoft/aiexec:latest
 
 ENTRYPOINT ["python", "-m", "aiexec", "run"]

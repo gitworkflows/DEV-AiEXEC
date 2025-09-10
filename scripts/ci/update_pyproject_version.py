@@ -49,7 +49,7 @@ def main() -> None:
     verify_pep440(new_version)
 
     if build_type == "base":
-        update_pyproject_version("api/base/pyproject.toml", new_version)
+        update_pyproject_version("src/backend/base/pyproject.toml", new_version)
     elif build_type == "main":
         update_pyproject_version("pyproject.toml", new_version)
     else:

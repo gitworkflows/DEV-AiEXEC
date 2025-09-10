@@ -4,6 +4,6 @@ node_modules
 **/node_modules/
 dist/
 **/build/
-api/aiexec/frontend
+src/backend/aiexec/frontend
 **/aiexec-pre.db
 **/aiexec.db

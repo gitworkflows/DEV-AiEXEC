@@ -7,7 +7,7 @@ on:
     - cron: "30 6 * * 1"
 
 env:
-  PYTEST_RUN_PATH: "api/tests"
+  PYTEST_RUN_PATH: "src/backend/tests"
 
 jobs:
   build:
@@ -34,7 +34,7 @@ jobs:
       - name: Run unit tests
         id: run_tests
         continue-on-error: true
-        run: uv run pytest api/tests/unit --timeout=150 --durations-path api/tests/.test_durations --splitting-algorithm least_duration --store-durations
+        run: uv run pytest src/backend/tests/unit --timeout=150 --durations-path src/backend/tests/.test_durations --splitting-algorithm least_duration --store-durations
 
 
       - name: Close existing PRs

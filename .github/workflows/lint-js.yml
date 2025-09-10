@@ -37,17 +37,17 @@ jobs:
         id: npm-cache
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('web/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('src/frontend/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Install Node.js dependencies
         run: |
-          cd web
+          cd src/frontend
           npm install
         if: ${{ steps.setup-node.outputs.cache-hit != 'true' }}
 
       - name: Run Biome
         run: |
-          cd web
+          cd src/frontend
           npx @biomejs/biome check --changed

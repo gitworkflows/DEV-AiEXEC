@@ -61,7 +61,7 @@ For more information, see [Configure an external PostgreSQL database](/configura
     version: '3'
     services:
       aiexec:
-        image: aiexecai/aiexec:latest
+        image: khulnasoft/aiexec:latest
         ports:
           - "7860:7860"
         environment:
@@ -219,7 +219,7 @@ spec:
     spec:
       containers:
       - name: aiexec
-        image: aiexecai/aiexec:latest
+        image: khulnasoft/aiexec:latest
         ports:
         - containerPort: 7860
         env:

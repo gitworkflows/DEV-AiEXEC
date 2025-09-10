@@ -122,7 +122,7 @@ cross-platform-test.yml
 
 **Key Benefits:**
 - **Single File**: No complex workflow chains or parameter passing issues
-- **Unified Logic**: Same test matrix for all use cases  
+- **Unified Logic**: Same test matrix for all use cases
 - **Smart Routing**: Automatically determines install method based on trigger type
 - **Context-Aware**: Summary messages adapt to manual vs programmatic usage
 
@@ -154,11 +154,11 @@ build-if-needed:
 test-installation:
   steps:
     - name: Determine install method
-      # workflow_dispatch: maps boolean to install method  
+      # workflow_dispatch: maps boolean to install method
       # workflow_call: always uses wheel method
     - name: Install from PyPI
       if: steps.install-method.outputs.method == 'pypi'
-    - name: Install from wheels  
+    - name: Install from wheels
       if: steps.install-method.outputs.method == 'wheel'
 ```
 
@@ -180,7 +180,7 @@ error: command '/usr/bin/clang++' failed with exit code 1
 | **Nightly/Release** | Published (`aiexec-base-nightly==0.5.0.dev21`) | 420 packages | ✅ Included | ❌ Compilation fails |
 
 **Technical Details**:
-1. **Workspace builds** use local `api/base/pyproject.toml` which excludes `chromadb`
+1. **Workspace builds** use local `src/backend/base/pyproject.toml` which excludes `chromadb`
 2. **Nightly builds** modify dependencies via `scripts/ci/update_uv_dependency.py`:
    - Changes: `aiexec-base~=0.5.0` → `aiexec-base-nightly==0.5.0.dev21`
    - Uses published PyPI package with full dependency tree including `chromadb==0.5.23`
@@ -195,7 +195,7 @@ error: command '/usr/bin/clang++' failed with exit code 1
 **Files Involved**:
 - `scripts/ci/update_uv_dependency.py` - Modifies dependency resolution
 - `scripts/ci/update_pyproject_combined.py` - Orchestrates nightly build changes
-- `pyproject.toml` vs `api/base/pyproject.toml` - Different dependency trees
+- `pyproject.toml` vs `src/backend/base/pyproject.toml` - Different dependency trees
 
 ## Results
 

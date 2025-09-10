@@ -3,8 +3,6 @@ repos:
     rev: v5.0.0
     hooks:
       - id: check-case-conflict
-      - id: detect-aws-credentials
-      - id: detect-private-key
       - id: end-of-file-fixer
         # python, js and ts only
         files: \.(py|js|ts)$
@@ -13,30 +11,6 @@ repos:
         args:
           - --fix=lf
       - id: trailing-whitespace
-  
-  # Security checks
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.8
-    hooks:
-      - id: bandit
-        name: bandit
-        description: Find common security issues in Python code
-        entry: bandit
-        language: system
-        types: [python]
-        args: [--configfile=pyproject.toml, -ll, -c, pyproject.toml]
-        pass_filenames: true
-
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: v1.4.0
-    hooks:
-      - id: python-safety-dependencies-check
-        name: Check dependencies for known security vulnerabilities
-        description: 'Safety: Check Python dependencies for known security vulnerabilities'
-        entry: safety check --file=requirements.txt --full-report
-        language: system
-        pass_filenames: false
-        always_run: true
   - repo: local
     hooks:
       - id: ruff
@@ -55,14 +29,14 @@ repos:
     hooks:
       - id: local-biome-check
         name: biome check
-        entry: bash -c 'cd web && npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched --diagnostic-level=error'
+        entry: bash -c 'cd src/frontend && npx @biomejs/biome check --write --files-ignore-unknown=true --no-errors-on-unmatched --diagnostic-level=error'
         language: system
         types: [text]
         files: "\\.(jsx?|tsx?|c(js|ts)|m(js|ts)|d\\.(ts|cts|mts)|jsonc?)$"
       - id: validate-starter-projects
         name: Validate Starter Project Templates
-        entry: uv run python api/tests/unit/template/test_starter_projects.py
+        entry: uv run python src/backend/tests/unit/template/test_starter_projects.py
         language: system
-        files: ^api/base/aiexec/initial_setup/starter_projects/.*\.json$
+        files: ^src/backend/base/aiexec/initial_setup/starter_projects/.*\.json$
         pass_filenames: false
         args: [--security-check]

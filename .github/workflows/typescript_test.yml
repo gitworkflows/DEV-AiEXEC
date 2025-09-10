@@ -205,16 +205,16 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
-          cache-dependency-path: ./web/package-lock.json
+          cache-dependency-path: ./src/frontend/package-lock.json
 
       - name: Install Frontend Dependencies
         run: npm ci
-        working-directory: ./web
+        working-directory: ./src/frontend
 
       - name: Calculate Test Shards Distribution
         id: setup-matrix
         run: |
-          cd web
+          cd src/frontend
 
           # Get the test count using playwright's built-in grep
           if [ -n "${{ steps.set-matrix.outputs.test_grep }}" ]; then
@@ -275,10 +275,10 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
-          cache-dependency-path: ./web/package-lock.json
+          cache-dependency-path: ./src/frontend/package-lock.json
       - name: Install Frontend Dependencies
         run: npm ci
-        working-directory: ./web
+        working-directory: ./src/frontend
 
       # Cache Playwright browsers using a composite key
       - name: Cache Playwright Browsers
@@ -293,7 +293,7 @@ jobs:
       - name: Install Playwright Browser Dependencies
         if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: |
-          cd ./web
+          cd ./src/frontend
           npx playwright install --with-deps chromium
 
       - name: "Setup Environment"
@@ -318,7 +318,7 @@ jobs:
           timeout_minutes: 12
           max_attempts: 2
           command: |
-            cd web
+            cd src/frontend
             echo 'Running tests with pattern: ${{ needs.determine-test-suite.outputs.test_grep }}'
             npx playwright test ${{ inputs.tests_folder }} ${{ needs.determine-test-suite.outputs.test_grep }} --shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --list --retries=3
             # echo command before running
@@ -331,7 +331,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: blob-report-${{ matrix.shardIndex }}
-          path: web/blob-report
+          path: src/frontend/blob-report
           retention-days: 1
 
       - name: Cleanup UV Cache
