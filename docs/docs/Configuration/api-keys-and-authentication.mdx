@@ -185,7 +185,7 @@ AIEXEC_SUPERUSER_PASSWORD=securepassword
 They are required if `AIEXEC_AUTO_LOGIN=False`.
 Otherwise, they aren't relevant.
 
-If required and not set in when you [start a Aiexec server with authentication enabled](#start-a-aiexec-server-with-authentication-enabled), then the default values are `aiexec` and `aiexec` for system auto-login behavior.
+When you [start a Aiexec server with authentication enabled](#start-a-aiexec-server-with-authentication-enabled), if these variables are required but _not_ set, then Aiexec uses the default values of `aiexec` and `aiexec`.
 These defaults don't apply when using the Aiexec CLI command [`aiexec superuser`](/configuration-cli#aiexec-superuser).
 
 ### AIEXEC_SECRET_KEY {#aiexec-secret-key}
@@ -248,6 +248,13 @@ To generate a secret encryption key for `AIEXEC_SECRET_KEY`, do the following:
     ```text
     AIEXEC_SECRET_KEY=dBuu...2kM2_fb
     ```
+
+    If you're running Aiexec on Docker, reference the `AIEXEC_SECRET_KEY` from your `.env` file in the `docker-compose.yml` file like this:
+
+        ```yaml
+        environment:
+          - AIEXEC_SECRET_KEY=${AIEXEC_SECRET_KEY}
+        ```
 
 ### AIEXEC_NEW_USER_IS_ACTIVE {#aiexec-new-user-is-active}
 
@@ -317,7 +324,7 @@ Additionally, you must sign in as a superuser to manage users and [create a Aiex
     uv run aiexec run --env-file .env
     ```
 
-    Starting Aiexec with an `.env` file automatically authenticates you as the superuser set in `AIEXEC_SUPERUSER` and `AIEXEC_SUPERUSER_PASSWORD`.
+    Starting Aiexec with a `.env` file automatically authenticates you as the superuser set in `AIEXEC_SUPERUSER` and `AIEXEC_SUPERUSER_PASSWORD`.
     If you don't explicitly set these variables, the default values are `aiexec` and `aiexec` for system auto-login.
 
 6. Verify the server is running. The default location is `http://localhost:7860`.

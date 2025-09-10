@@ -2,29 +2,12 @@
 
 ## Security Policy
 
-This security policy applies to all public projects under the aiexec-ai organization on GitHub. We prioritize security and continuously work to safeguard our systems. However, vulnerabilities can still exist. If you identify a security issue, please report it to us so we can address it promptly.
+This security policy applies to all public projects under the khulnasoft-lab organization on GitHub. We prioritize security and continuously work to safeguard our systems. However, vulnerabilities can still exist. If you identify a security issue, please report it to us so we can address it promptly.
 
-### Security Measures
+### Security/Bugfix Versions
 
-1. **Automated Security Scanning**
-   - Code is automatically scanned for vulnerabilities using Bandit and Safety
-   - Dependencies are regularly checked for known vulnerabilities
-   - Pre-commit hooks enforce security checks before code is committed
-
-2. **Security/Bugfix Versions**
-   - Fixes are released either as part of the next minor version (e.g., 1.3.0 → 1.4.0) or as an on-demand patch version (e.g., 1.3.0 → 1.3.1)
-   - Security fixes are given priority and might be enough to cause a new version to be released
-   - Critical security updates are backported to the last stable release when possible
-
-3. **Dependency Management**
-   - All dependencies are pinned to specific versions
-   - Regular dependency updates are performed with security checks
-   - Automatic dependency updates are monitored and reviewed
-
-4. **Secure Development Practices**
-   - Code reviews are required for all changes
-   - Security-focused code reviews for sensitive areas
-   - Regular security training for core contributors
+- Fixes are released either as part of the next minor version (e.g., 1.3.0 → 1.4.0) or as an on-demand patch version (e.g., 1.3.0 → 1.3.1)
+- Security fixes are given priority and might be enough to cause a new version to be released
 
 ## Reporting a Vulnerability
 
@@ -57,42 +40,6 @@ Use the "Report a vulnerability" button under the "Security" tab of the [Aiexec 
 
 We appreciate your efforts in helping us maintain a secure platform and look forward to working together to resolve any issues responsibly.
 
-## Security Tools and Configuration
-
-### Automated Security Scanning
-
-Our CI/CD pipeline includes the following security checks:
-
-1. **Bandit** - Static code analysis for common security issues in Python code
-   - Configuration: `.bandit.yml`
-   - Runs on every pull request and push to main branches
-
-2. **Safety** - Checks Python dependencies for known security vulnerabilities
-   - Scans all installed packages against a database of known vulnerabilities
-   - Fails the build if critical vulnerabilities are found
-
-3. **Pre-commit Hooks**
-   - Detects AWS credentials and private keys before commit
-   - Runs security checks on staged files
-   - Prevents committing sensitive information
-
-### Secure Development Guidelines
-
-1. **Authentication & Authorization**
-   - Always use the latest authentication mechanisms
-   - Implement principle of least privilege
-   - Validate all user inputs
-
-2. **Data Protection**
-   - Encrypt sensitive data at rest and in transit
-   - Use environment variables for secrets
-   - Never commit secrets to version control
-
-3. **Dependencies**
-   - Regularly update dependencies
-   - Audit third-party code
-   - Prefer well-maintained packages
-
 ## Known Vulnerabilities
 
 ### Code Execution Vulnerability (Fixed in 1.3.0)
@@ -101,7 +48,15 @@ Aiexec allows users to define and run **custom code components** through endpoin
 
 This means an attacker could send malicious code to the endpoint and have it executed on the server—leading to full system compromise, including data theft, remote shell access, or lateral movement within the network.
 
-To address, upgrade to >= 1.3.0.
+**CVE**: [CVE-2025-3248](https://nvd.nist.gov/vuln/detail/CVE-2025-3248)
+**Fixed in**: Aiexec >= 1.3.0
+
+### Privilege Escalation via CLI Superuser Creation (Fixed in 1.5.1)
+
+A privilege escalation vulnerability exists in Aiexec containers where an authenticated user with RCE access can invoke the internal CLI command `aiexec superuser` to create a new administrative user. This results in full superuser access, even if the user initially registered through the UI as a regular (non-admin) account.
+
+**CVE**: [CVE-2025-57760](https://github.com/khulnasoft-lab/aiexec/security/advisories/GHSA-4gv9-mp8m-592r)
+**Fixed in**: Aiexec >= 1.5.1
 
 ### No API key required if running Aiexec with `AIEXEC_AUTO_LOGIN=true` and `AIEXEC_SKIP_AUTH_AUTO_LOGIN=true`
 

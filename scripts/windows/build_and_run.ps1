@@ -87,7 +87,7 @@ Write-Host "`nStep 4: Running Aiexec..." -ForegroundColor Yellow
 Write-Host "`nAttention: Wait until uvicorn is running before opening the browser" -ForegroundColor Red
 try {
     if ($useEnvFile) {
-        & uv run aiexec run --env-file $envPath
+        & uv run --env-file $envPath aiexec run
     } else {
         & uv run aiexec run
     }

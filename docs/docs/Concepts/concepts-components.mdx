@@ -30,7 +30,9 @@ After adding a component to a flow, configure the component's parameters and con
 
 Each component has inputs, outputs, parameters, and controls related to the component's purpose.
 By default, components show only required and common options.
-To access additional settings and controls, including meta settings, use the component's header menu.
+To access additional settings and controls, including meta settings, use the [component's header menu](#component-header-menus).
+
+### Component header menus
 
 To access a component's header menu, click the component in your workspace.
 
@@ -150,7 +152,7 @@ In the context of creating and running flows, component code does the following:
 * Passes results to the next component in the flow.
 
 All components inherit from a base `Component` class that defines the component's interface and behavior.
-For example, the [**Recursive Character Text Splitter** component](https://github.com/khulnasoft-lab/aiexec/blob/main/api/base/aiexec/components/langchain_utilities/recursive_character.py) is a child of the [`LCTextSplitterComponent`](https://github.com/khulnasoft-lab/aiexec/blob/main/api/base/aiexec/base/textsplitters/model.py) class.
+For example, the [**Recursive Character Text Splitter** component](https://github.com/khulnasoft-lab/aiexec/blob/main/src/backend/base/aiexec/components/langchain_utilities/recursive_character.py) is a child of the [`LCTextSplitterComponent`](https://github.com/khulnasoft-lab/aiexec/blob/main/src/backend/base/aiexec/base/textsplitters/model.py) class.
 
 Each component's code includes definitions for inputs and outputs, which are represented in the workspace as [component ports](#component-ports).
 For example, the `RecursiveCharacterTextSplitter` has four inputs. Each input definition specifies the input type, such as `IntInput`, as well as the encoded name, display name, description, and other parameters for that specific input.
@@ -239,7 +241,7 @@ Components are updated to the latest available version, based on the version of 
 
 ## Group components
 
-Multiple components can be grouped into a single component for reuse. This is useful for organizing large flows by combining related components together, such as a RAG **Agent** component and it's associated **Embeddings Model** and **Vector Store** components.
+Multiple components can be grouped into a single component for reuse. This is useful for organizing large flows by combining related components together, such as a RAG **Agent** component and it's associated tools or vector store components.
 
 1. Hold <kbd>Shift</kbd>, and then click and drag to highlight all components you want to merge. Components must be completely within the selection area to be merged.
 

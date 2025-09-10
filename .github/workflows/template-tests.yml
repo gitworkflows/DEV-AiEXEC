@@ -3,9 +3,9 @@ name: Template Tests
 on:
   pull_request:
     paths:
-      - 'api/base/aiexec/initial_setup/starter_projects/**'
-      - 'api/tests/unit/template/test_starter_projects.py'
-      - 'api/base/aiexec/utils/template_validation.py'
+      - 'src/backend/base/aiexec/initial_setup/starter_projects/**'
+      - 'src/backend/tests/unit/template/test_starter_projects.py'
+      - 'src/backend/base/aiexec/utils/template_validation.py'
       - '.github/workflows/template-tests.yml'
   workflow_dispatch:
 
@@ -37,4 +37,4 @@ jobs:
 
     - name: Test all starter project templates
       run: |
-        uv run pytest api/tests/unit/template/test_starter_projects.py -v -n auto
+        uv run pytest src/backend/tests/unit/template/test_starter_projects.py -v -n auto

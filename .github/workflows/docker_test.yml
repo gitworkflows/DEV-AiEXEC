@@ -7,7 +7,7 @@ on:
       - "docker/**"
       - "uv.lock"
       - "pyproject.toml"
-      - "api/**"
+      - "src/backend/**"
       - ".github/workflows/docker_test.yml"
   pull_request:
     branches: [dev]
@@ -30,13 +30,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build image
         run: |
-          docker build -t aiexecai/aiexec:latest-dev \
+          docker build -t khulnasoft/aiexec:latest-dev \
             -f docker/build_and_push.Dockerfile \
             .
       - name: Test image
         run: |
           expected_version=$(cat pyproject.toml | grep version | head -n 1 | cut -d '"' -f 2)
-          version=$(docker run --rm --entrypoint bash aiexecai/aiexec:latest-dev -c "python -c 'from aiexec.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
+          version=$(docker run --rm --entrypoint bash khulnasoft/aiexec:latest-dev -c "python -c 'from aiexec.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
           if [ "$expected_version" != "$version" ]; then
               echo "Expected version: $expected_version"
               echo "Actual version: $version"
@@ -45,14 +45,14 @@ jobs:
 
       - name: Build backend image
         run: |
-          docker build -t aiexecai/aiexec-backend:latest-dev \
-            --build-arg AIEXEC_IMAGE=aiexecai/aiexec:latest-dev \
+          docker build -t khulnasoft/aiexec-backend:latest-dev \
+            --build-arg AIEXEC_IMAGE=khulnasoft/aiexec:latest-dev \
             -f docker/build_and_push_backend.Dockerfile \
             .
       - name: Test backend image
         run: |
           expected_version=$(cat pyproject.toml | grep version | head -n 1 | cut -d '"' -f 2)
-          version=$(docker run --rm --entrypoint bash aiexecai/aiexec-backend:latest-dev -c "python -c 'from aiexec.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
+          version=$(docker run --rm --entrypoint bash khulnasoft/aiexec-backend:latest-dev -c "python -c 'from aiexec.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
           if [ "$expected_version" != "$version" ]; then
               echo "Expected version: $expected_version"
               echo "Actual version: $version"
@@ -60,6 +60,6 @@ jobs:
           fi
       - name: Build frontend image
         run: |
-          docker build -t aiexecai/aiexec-frontend:latest-dev \
+          docker build -t khulnasoft/aiexec-frontend:latest-dev \
             -f docker/frontend/build_and_push_frontend.Dockerfile \
             .

@@ -3,7 +3,7 @@ name: Codeflash
 on:
   pull_request:
     paths:
-      - "api/base/aiexec/**"
+      - "src/backend/base/aiexec/**"
   workflow_dispatch:
 
 concurrency:
@@ -31,7 +31,7 @@ jobs:
           prune-cache: false
       - run: uv sync
       - name: Run Codeflash Optimizer
-        working-directory: ./api/base
+        working-directory: ./src/backend/base
         continue-on-error: true
         run: uv run codeflash
 

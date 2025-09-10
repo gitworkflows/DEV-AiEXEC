@@ -2,13 +2,13 @@
 
 This script generates a custom `.coveragerc` file for backend testing that excludes:
 
-1. **Bundled components** - Components listed in `SIDEBAR_BUNDLES` from `web/src/utils/styleUtils.ts`
+1. **Bundled components** - Components listed in `SIDEBAR_BUNDLES` from `src/frontend/src/utils/styleUtils.ts`
 2. **Legacy components** - Python files containing `legacy = True`
 
 ## How it works
 
 1. **Reads frontend config**: Parses `styleUtils.ts` to extract bundled component names
-2. **Scans backend files**: Finds all `.py` files in `api/base/aiexec/components/` with `legacy = True`
+2. **Scans backend files**: Finds all `.py` files in `src/backend/base/aiexec/components/` with `legacy = True`
 3. **Generates .coveragerc**: Creates exclusion patterns for pytest-cov
 
 ## Usage
@@ -17,7 +17,7 @@ This script generates a custom `.coveragerc` file for backend testing that exclu
 ```bash
 # Generate config and run tests
 python3 scripts/generate_coverage_config.py
-cd api && python -m pytest --cov=api/base/aiexec --cov-config=.coveragerc
+cd src/backend && python -m pytest --cov=src/backend/base/aiexec --cov-config=.coveragerc
 ```
 
 ### CI Integration
@@ -25,9 +25,9 @@ The script runs automatically in CI before backend tests via `.github/workflows/
 
 ## Files affected
 
-- **Input**: `web/src/utils/styleUtils.ts` (SIDEBAR_BUNDLES)
-- **Input**: `api/base/aiexec/components/**/*.py` (legacy components)  
-- **Output**: `api/.coveragerc` (auto-generated, in .gitignore)
+- **Input**: `src/frontend/src/utils/styleUtils.ts` (SIDEBAR_BUNDLES)
+- **Input**: `src/backend/base/aiexec/components/**/*.py` (legacy components)
+- **Output**: `src/backend/.coveragerc` (auto-generated, in .gitignore)
 
 ## Benefits
 
