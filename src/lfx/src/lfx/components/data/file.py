@@ -32,7 +32,7 @@ class FileComponent(BaseFileComponent):
 
     display_name = "File"
     description = "Loads content from files with optional advanced document processing and export using Docling."
-    documentation: str = "https://docs.aiexec.org/components-data#file"
+    documentation: str = "https://docs.khulnasoft.com/components-data#file"
     icon = "file-text"
     name = "File"
 

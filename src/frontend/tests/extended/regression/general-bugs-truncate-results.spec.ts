@@ -26,11 +26,11 @@ test.skip(
 
     await page
       .getByTestId("inputlist_str_urls_0")
-      .fill("https://docs.aiexec.org/");
+      .fill("https://docs.khulnasoft.com/");
 
     await page
       .getByTestId("inputlist_str_urls_1")
-      .fill("https://www.aiexec.org/");
+      .fill("https://www.khulnasoft.com/");
     await page.getByTestId("canvas_controls_dropdown").click();
 
     await page.getByTitle("fit view").click();

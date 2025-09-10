@@ -14,7 +14,7 @@ from lfx.schema.data import Data
 class NotionPageCreator(LCToolComponent):
     display_name: str = "Create Page "
     description: str = "A component for creating Notion pages."
-    documentation: str = "https://docs.aiexec.org/integrations/notion/page-create"
+    documentation: str = "https://docs.khulnasoft.com/integrations/notion/page-create"
     icon = "NotionDirectoryLoader"
 
     inputs = [

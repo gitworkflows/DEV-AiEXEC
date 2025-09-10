@@ -13,7 +13,7 @@ const config = {
   tagline:
     "Aiexec is a low-code app builder for RAG and multi-agent AI applications.",
   favicon: "img/favicon.ico",
-  url: "https://docs.aiexec.org",
+  url: "https://docs.khulnasoft.com",
   baseUrl: process.env.BASE_URL ? process.env.BASE_URL : "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -137,14 +137,14 @@ const config = {
       selectors: [
         {
           selector: 'h1, h2, h3, h4, h5, h6',
-          eventName: 'Docs.aiexec.org - Heading Viewed',
+          eventName: 'Docs.khulnasoft.com - Heading Viewed',
           properties: {
             element_type: 'heading'
           }
         },
         {
           selector: '.ch-codeblock',
-          eventName: 'Docs.aiexec.org - Codeblock Viewed',
+          eventName: 'Docs.khulnasoft.com - Codeblock Viewed',
           properties: {
             element_type: 'code',
             language: 'helper:codeLanguage'
@@ -353,7 +353,7 @@ const config = {
             className: "header-github-link",
             target: "_blank",
             rel: null,
-            'data-event': 'Docs.aiexec.org - Social Clicked',
+            'data-event': 'Docs.khulnasoft.com - Social Clicked',
             'data-platform': 'github'
           },
           {
@@ -362,7 +362,7 @@ const config = {
             className: "header-twitter-link",
             target: "_blank",
             rel: null,
-            'data-event': 'Docs.aiexec.org - Social Clicked',
+            'data-event': 'Docs.khulnasoft.com - Social Clicked',
             'data-platform': 'x'
           },
           {
@@ -371,7 +371,7 @@ const config = {
             className: "header-discord-link",
             target: "_blank",
             rel: null,
-            'data-event': 'Docs.aiexec.org - Social Clicked',
+            'data-event': 'Docs.khulnasoft.com - Social Clicked',
             'data-platform': 'discord'
           },
         ],
@@ -407,7 +407,7 @@ const config = {
               {
                 html: `<div class="footer-links">
                   <span>© ${new Date().getFullYear()} Aiexec</span>
-                  <span id="preferenceCenterContainer"> ·&nbsp; <a href="https://aiexec.org/preferences">Manage Privacy Choices</a></span>
+                  <span id="preferenceCenterContainer"> ·&nbsp; <a href="https://khulnasoft.com/preferences">Manage Privacy Choices</a></span>
                   </div>`,
               },
             ],

@@ -716,8 +716,8 @@ export const ALERT_SAVE_WITH_API =
 export const SAVE_WITH_API_CHECKBOX = "Save with my API keys";
 export const EDIT_TEXT_MODAL_TITLE = "Edit Text";
 export const EDIT_TEXT_PLACEHOLDER = "Type message here.";
-export const INPUT_HANDLER_HOVER = "Avaliable input components:";
-export const OUTPUT_HANDLER_HOVER = "Avaliable output components:";
+export const INPUT_HANDLER_HOVER = "Available input components:";
+export const OUTPUT_HANDLER_HOVER = "Available output components:";
 export const TEXT_INPUT_MODAL_TITLE = "Inputs";
 export const OUTPUTS_MODAL_TITLE = "Outputs";
 export const AIEXEC_CHAT_TITLE = "Aiexec Chat";
@@ -1101,10 +1101,10 @@ export const DEFAULT_FILE_PICKER_TIMEOUT = 60000;
 export const DISCORD_URL = "https://discord.com/invite/EqksyE2EX9";
 export const GITHUB_URL = "https://github.com/khulnasoft-lab/aiexec";
 export const TWITTER_URL = "https://x.com/aiexec_ai";
-export const DOCS_URL = "https://docs.aiexec.org";
+export const DOCS_URL = "https://docs.khulnasoft.com";
 export const DATASTAX_DOCS_URL =
   "https://docs.datastax.com/en/aiexec/index.html";
-export const DESKTOP_URL = "https://www.aiexec.org/desktop";
+export const DESKTOP_URL = "https://www.khulnasoft.com/desktop";
 export const BUG_REPORT_URL = "https://github.com/khulnasoft-lab/aiexec/issues";
 
 export const UUID_PARSING_ERROR = "uuid_parsing";

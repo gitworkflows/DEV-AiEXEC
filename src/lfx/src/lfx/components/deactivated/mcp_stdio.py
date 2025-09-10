@@ -20,7 +20,7 @@ class MCPStdio(Component):
     tool_names = [str]
     display_name = "MCP Tools (stdio) [DEPRECATED]"
     description = "Connects to an MCP server over stdio and exposes it's tools as aiexec tools to be used by an Agent."
-    documentation: str = "https://docs.aiexec.org/components-custom-components"
+    documentation: str = "https://docs.khulnasoft.com/components-custom-components"
     icon = "code"
     name = "MCPStdio"
     legacy = True

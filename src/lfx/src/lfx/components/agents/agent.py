@@ -40,7 +40,7 @@ MODEL_PROVIDERS_LIST = ["Anthropic", "Google Generative AI", "Groq", "OpenAI"]
 class AgentComponent(ToolCallingAgentComponent):
     display_name: str = "Agent"
     description: str = "Define the agent's instructions, then enter a task to complete using tools."
-    documentation: str = "https://docs.aiexec.org/agents"
+    documentation: str = "https://docs.khulnasoft.com/agents"
     icon = "bot"
     beta = False
     name = "Agent"
