@@ -33,7 +33,7 @@ OPERATORS = {
 class DataOperationsComponent(Component):
     display_name = "Data Operations"
     description = "Perform various operations on a Data object."
-    documentation: str = "https://docs.aiexec.org/components-processing#data-operations"
+    documentation: str = "https://docs.khulnasoft.com/components-processing#data-operations"
     icon = "file-json"
     name = "DataOperations"
     default_keys = ["operations", "data"]

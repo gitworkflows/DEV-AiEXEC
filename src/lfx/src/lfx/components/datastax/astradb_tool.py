@@ -17,7 +17,7 @@ from lfx.schema.table import EditMode
 class AstraDBToolComponent(LCToolComponent):
     display_name: str = "Astra DB Tool"
     description: str = "Tool to run hybrid vector and metadata search on DataStax Astra DB Collection"
-    documentation: str = "https://docs.aiexec.org/components-bundle-components"
+    documentation: str = "https://docs.khulnasoft.com/components-bundle-components"
     icon: str = "AstraDB"
 
     inputs = [

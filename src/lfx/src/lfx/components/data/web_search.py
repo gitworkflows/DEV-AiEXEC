@@ -14,7 +14,7 @@ from lfx.utils.request_utils import get_user_agent
 class WebSearchComponent(Component):
     display_name = "Web Search"
     description = "Performs a basic DuckDuckGo search (HTML scraping). May be subject to rate limits."
-    documentation: str = "https://docs.aiexec.org/components-data#web-search"
+    documentation: str = "https://docs.khulnasoft.com/components-data#web-search"
     icon = "search"
     name = "WebSearchNoAPI"
 
