@@ -23,12 +23,12 @@ class TestCodeHashGeneration:
 
     def test_hash_empty_source_raises(self):
         """Test that empty source raises ValueError."""
-        with pytest.raises(ValueError, match="Empty source code"):
+        with pytest.raises(ValueError, match=r"Empty source code"):
             _generate_code_hash("", "mod")
 
     def test_hash_none_source_raises(self):
         """Test that None source raises TypeError."""
-        with pytest.raises(TypeError, match="Source code must be a string"):
+        with pytest.raises(TypeError, match=r"Source code must be a string"):
             _generate_code_hash(None, "mod")
 
     def test_hash_consistency(self):
@@ -84,7 +84,7 @@ class TestMetadataInTemplateBuilders:
                 patch("lfx.custom.utils.reorder_fields"),
             ):
                 # Call the function
-                template, _ = build_custom_component_template_from_inputs(test_component, module_name="test.module")
+                _template, _ = build_custom_component_template_from_inputs(test_component, module_name="test.module")
 
         # Verify metadata was added
         assert "module" in mock_frontend.metadata
@@ -127,7 +127,7 @@ class TestMetadataInTemplateBuilders:
                 patch("lfx.custom.utils.reorder_fields"),
             ):
                 # Call the function
-                template, _ = build_custom_component_template(test_component, module_name="custom.test")
+                _template, _ = build_custom_component_template(test_component, module_name="custom.test")
 
         # Verify metadata was added
         assert "module" in mock_frontend.metadata
@@ -137,7 +137,7 @@ class TestMetadataInTemplateBuilders:
 
     def test_hash_generation_unicode(self):
         """Test hash generation with unicode characters."""
-        source = "# Test with unicode: 你好 🌟\nclass Component: pass"
+        source = "# Test with unicode: \u4f60\u597d \ud83c\udf1f\nclass Component: pass"
         result = _generate_code_hash(source, "unicode_mod")
 
         assert isinstance(result, str)
@@ -146,7 +146,7 @@ class TestMetadataInTemplateBuilders:
 
     def test_hash_non_string_source_raises(self):
         """Test that non-string source raises TypeError."""
-        with pytest.raises(TypeError, match="Source code must be a string"):
+        with pytest.raises(TypeError, match=r"Source code must be a string"):
             _generate_code_hash(123, "mod")
 
     def test_hash_mock_source_raises(self):
@@ -154,7 +154,7 @@ class TestMetadataInTemplateBuilders:
         from unittest.mock import Mock
 
         mock_code = Mock()
-        with pytest.raises(TypeError, match="Source code must be a string"):
+        with pytest.raises(TypeError, match=r"Source code must be a string"):
             _generate_code_hash(mock_code, "mod")
 
     @patch("lfx.custom.utils.ComponentFrontendNode")
@@ -230,7 +230,7 @@ except ImportError:
 
         deps = analyze_dependencies(code, resolve_versions=False)
 
-        # Should find external dependencies only (stdlib imports filtered out)
+        # Should find external dependencies only (stdlib filtered out)
         assert len(deps) == 2  # optional_package, another_optional
         dep_names = [d["name"] for d in deps]
         assert "optional_package" in dep_names
@@ -546,7 +546,7 @@ class LMStudioModelComponent(LCModelComponent):
                 patch("lfx.custom.utils.reorder_fields"),
             ):
                 # Call the function without module_name
-                _, _ = build_custom_component_template_from_inputs(test_component, module_name=None)
+                _template, _ = build_custom_component_template_from_inputs(test_component, module_name=None)
 
         # Verify metadata was added with generated module name
         assert "module" in mock_frontend.metadata

@@ -5,7 +5,6 @@ import warnings
 from unittest.mock import Mock, patch
 
 import pytest
-
 from lfx.custom.validate import (
     _create_aiexec_execution_context,
     add_type_ignores,
@@ -281,7 +280,7 @@ def get_current_dir():
 import nonexistent_module
 
 def test_func():
-    return nonexistent_module.test()
+    return nonexistent_module.some_function()
 """
         with pytest.raises(ModuleNotFoundError, match="Module nonexistent_module not found"):
             execute_function(code, "test_func")
@@ -423,7 +422,7 @@ class TestClass:
 
         with (
             patch("lfx.custom.validate.prepare_global_scope", side_effect=validation_error),
-            pytest.raises(ValueError, match=".*"),
+            pytest.raises(ValueError, match=r".*"),
         ):
             create_class(code, "TestClass")
 

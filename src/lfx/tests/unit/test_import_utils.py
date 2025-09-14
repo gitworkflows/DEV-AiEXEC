@@ -42,17 +42,17 @@ class TestImportAttr:
 
     def test_import_nonexistent_module(self):
         """Test error handling when module doesn't exist."""
-        with pytest.raises(ImportError, match="not found"):
+        with pytest.raises(ImportError, match=r"not found"):
             import_mod("SomeComponent", "nonexistent_module", "lfx.components.openai")
 
     def test_module_not_found_with_none_module_name(self):
         """Test ModuleNotFoundError handling when module_name is None."""
-        with pytest.raises(AttributeError, match="has no attribute"):
+        with pytest.raises(AttributeError, match=r"has no attribute"):
             import_mod("nonexistent_module", None, "lfx.components")
 
     def test_module_not_found_with_module_special_name(self):
         """Test ModuleNotFoundError handling when module_name is '__module__'."""
-        with pytest.raises(AttributeError, match="has no attribute"):
+        with pytest.raises(AttributeError, match=r"has no attribute"):
             import_mod("nonexistent_module", "__module__", "lfx.components")
 
     def test_import_nonexistent_attribute(self):
@@ -63,7 +63,7 @@ class TestImportAttr:
     def test_import_with_none_package(self):
         """Test behavior when package is None."""
         # This should raise TypeError because relative imports require a package
-        with pytest.raises(TypeError, match="package.*required"):
+        with pytest.raises(TypeError, match=r"package.*required"):
             import_mod("something", "some_module", None)
 
     def test_module_not_found_error_handling(self):
@@ -71,7 +71,7 @@ class TestImportAttr:
         with patch("lfx.components._importing.import_module") as mock_import_module:
             mock_import_module.side_effect = ModuleNotFoundError("No module named 'test.package.test_module'")
 
-            with pytest.raises(ImportError, match="module .* not found"):
+            with pytest.raises(ImportError, match=r"module .* not found"):
                 import_mod("TestComponent", "test_module", "test.package")
 
     def test_getattr_error_handling(self):

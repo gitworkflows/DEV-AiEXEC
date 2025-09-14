@@ -156,7 +156,7 @@ class DataOperationsComponent(Component):
     # Helper methods for data operations
     def get_data_dict(self) -> dict:
         """Extract data dictionary from Data object."""
-        # TODO: rasie error if it s list of data objects
+        # TODO: raise error if it s list of data objects
         data = self.data[0] if isinstance(self.data, list) and len(self.data) == 1 else self.data
         return data.model_dump()
 

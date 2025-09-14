@@ -143,7 +143,7 @@ def test_message_with_invalid_image_path():
     message = Message(text="Invalid image", sender=MESSAGE_SENDER_USER, files=[file_path])
 
     # When files don't exist and can't be found in cache, it should raise FileNotFoundError
-    with pytest.raises(FileNotFoundError, match="Image file not found"):
+    with pytest.raises(FileNotFoundError, match=r"Image file not found"):
         message.to_lc_message()
 
     # The invalid file path is still stored in the message

@@ -14,7 +14,7 @@ async def test_graph_not_prepared():
     graph = Graph()
     graph.add_component(chat_input)
     graph.add_component(chat_output)
-    with pytest.raises(ValueError, match="Graph not prepared"):
+    with pytest.raises(ValueError, match=r"Graph not prepared"):
         await graph.astep()
 
 

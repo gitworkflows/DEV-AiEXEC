@@ -89,7 +89,7 @@ class TestPortUtilities:
             # Mock socket to always raise OSError (port in use)
             mock_socket.return_value.__enter__.return_value.bind.side_effect = OSError
 
-            with pytest.raises(RuntimeError, match="No free ports available"):
+            with pytest.raises(RuntimeError, match=r"No free ports available"):
                 get_free_port(65534)  # Start near the end
 
 
@@ -123,7 +123,7 @@ class TestApiKey:
         """Test error when API key is not set."""
         with (
             patch.dict(os.environ, {}, clear=True),
-            pytest.raises(ValueError, match="AIEXEC_API_KEY environment variable is not set"),
+            pytest.raises(ValueError, match=r"AIEXEC_API_KEY environment variable is not set"),
         ):
             get_api_key()
 
@@ -131,7 +131,7 @@ class TestApiKey:
         """Test error when API key is empty string."""
         with (
             patch.dict(os.environ, {"AIEXEC_API_KEY": ""}),
-            pytest.raises(ValueError, match="AIEXEC_API_KEY environment variable is not set"),
+            pytest.raises(ValueError, match=r"AIEXEC_API_KEY environment variable is not set"),
         ):
             get_api_key()
 
@@ -213,11 +213,11 @@ class TestGraphExecution:
         mock_graph = MagicMock()
         mock_graph.async_start = mock_async_start
 
-        results, logs = await execute_graph_with_capture(mock_graph, "test input")
+        results, _logs = await execute_graph_with_capture(mock_graph, "test input")
 
         assert len(results) == 1
         assert results[0].results == {"text": "Test result"}
-        assert logs == ""
+        assert _logs == ""
 
     @pytest.mark.asyncio
     async def test_execute_graph_with_capture_with_message(self):
@@ -234,7 +234,7 @@ class TestGraphExecution:
         mock_graph = MagicMock()
         mock_graph.async_start = mock_async_start
 
-        results, logs = await execute_graph_with_capture(mock_graph, "test input")
+        results, _logs = await execute_graph_with_capture(mock_graph, "test input")
 
         assert len(results) == 1
         assert results[0].message.text == "Message text"
@@ -251,7 +251,7 @@ class TestGraphExecution:
         mock_graph = MagicMock()
         mock_graph.async_start = mock_async_start_error
 
-        with pytest.raises(RuntimeError, match="Execution failed"):
+        with pytest.raises(RuntimeError, match=r"Execution failed"):
             await execute_graph_with_capture(mock_graph, "test input")
 
 

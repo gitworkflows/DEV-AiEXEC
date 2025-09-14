@@ -1,6 +1,5 @@
 from aiexec.initial_setup.setup import load_starter_projects
 from aiexec.load import aload_flow_from_json
-
 from lfx.graph import Graph
 
 # TODO: UPDATE BASIC EXAMPLE

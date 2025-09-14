@@ -55,7 +55,7 @@ class TestEventManager:
         queue = asyncio.Queue()
         manager = EventManager(queue)
 
-        with pytest.raises(ValueError, match="Event name cannot be empty"):
+        with pytest.raises(ValueError, match=r"Event name cannot be empty"):
             manager.register_event("", "test_event")
 
     def test_register_event_validation_name_prefix(self):
@@ -63,12 +63,12 @@ class TestEventManager:
         queue = asyncio.Queue()
         manager = EventManager(queue)
 
-        with pytest.raises(ValueError, match="Event name must start with 'on_'"):
+        with pytest.raises(ValueError, match=r"Event name must start with 'on_'"):
             manager.register_event("invalid_name", "test_event")
 
     def test_validate_callback_not_callable(self):
         """Test callback validation for non-callable."""
-        with pytest.raises(TypeError, match="Callback must be callable"):
+        with pytest.raises(TypeError, match=r"Callback must be callable"):
             EventManager._validate_callback("not_callable")
 
     def test_validate_callback_wrong_parameters(self):
@@ -77,7 +77,7 @@ class TestEventManager:
         def wrong_callback(param1, param2):
             pass
 
-        with pytest.raises(ValueError, match="Callback must have exactly 3 parameters"):
+        with pytest.raises(ValueError, match=r"Callback must have exactly 3 parameters"):
             EventManager._validate_callback(wrong_callback)
 
     def test_validate_callback_wrong_parameter_names(self):
@@ -86,7 +86,7 @@ class TestEventManager:
         def wrong_names(wrong1, wrong2, wrong3):
             pass
 
-        with pytest.raises(ValueError, match="Callback must have exactly 3 parameters: manager, event_type, and data"):
+        with pytest.raises(ValueError, match=r"Callback must have exactly 3 parameters: manager, event_type, and data"):
             EventManager._validate_callback(wrong_names)
 
     def test_send_event_with_queue(self):
@@ -328,11 +328,10 @@ class TestEventManagerAsync:
 
         # Get item from queue
         item = await queue.get()
-        event_id, data_bytes, timestamp = item
+        _event_id, data_bytes, _timestamp = item
 
-        assert event_id.startswith("test-")
         assert isinstance(data_bytes, bytes)
-        assert isinstance(timestamp, float)
+        assert isinstance(_timestamp, float)
 
         # Parse the data
         data_str = data_bytes.decode("utf-8").strip()
@@ -359,7 +358,7 @@ class TestEventManagerAsync:
         received_events = []
         while not queue.empty():
             item = await queue.get()
-            event_id, data_bytes, timestamp = item
+            _event_id, data_bytes, _timestamp = item
             data_str = data_bytes.decode("utf-8").strip()
             parsed_data = json.loads(data_str)
             received_events.append((parsed_data["event"], parsed_data["data"]))

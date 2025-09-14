@@ -23,7 +23,7 @@ except ImportError:
 def test_set_invalid_output():
     chatinput = ChatInput()
     chatoutput = ChatOutput()
-    with pytest.raises(ValueError, match="Method build_config is not a valid output of ChatInput"):
+    with pytest.raises(ValueError, match=r"Method build_config is not a valid output of ChatInput"):
         chatoutput.set(input_value=chatinput.build_config)
 
 

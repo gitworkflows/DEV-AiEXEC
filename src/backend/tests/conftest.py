@@ -28,6 +28,9 @@ from blockbuster import blockbuster_ctx
 from dotenv import load_dotenv
 from fastapi.testclient import TestClient
 from httpx import ASGITransport, AsyncClient
+from lfx.components.input_output import ChatInput
+from lfx.graph import Graph
+from lfx.log.logger import logger
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import selectinload
 from sqlmodel import Session, SQLModel, create_engine, select
@@ -35,9 +38,6 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel.pool import StaticPool
 from typer.testing import CliRunner
 
-from lfx.components.input_output import ChatInput
-from lfx.graph import Graph
-from lfx.log.logger import logger
 from tests.api_keys import get_openai_api_key
 
 load_dotenv()
@@ -131,7 +131,7 @@ def pytest_configure(config):
     pytest.LOOP_TEST = data_path / "LoopTest.json"
     pytest.CODE_WITH_SYNTAX_ERROR = """
 def get_text():
-    retun "Hello World"
+    return "Hello World"
     """
 
     # validate that all the paths are correct and the files exist

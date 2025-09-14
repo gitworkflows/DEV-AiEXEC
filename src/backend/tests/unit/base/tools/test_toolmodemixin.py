@@ -19,10 +19,9 @@ from aiexec.io import (
     StrInput,
     TableInput,
 )
-from pydantic import BaseModel
-
 from lfx.base.tools.component_tool import ComponentToolkit
 from lfx.schema import Data
+from pydantic import BaseModel
 
 
 class AllInputsComponent(Component):
@@ -137,7 +136,7 @@ def test_component_inputs_toolkit():
         "message_input": {"title": "Message Input", "description": "Input for message objects."},
         "message_text_input": {"title": "Message Text Input", "description": "Input for message text."},
         "multiline_input": {"title": "Multiline Input", "description": "Input for multiline text."},
-        # TODO: to check how the title is generated, Shouldnt it  be the display name?
+        # TODO: to check how the title is generated, Shouldn't it  be the display name?
         "int_input": {"title": "Int Input", "description": "Input for integer values."},
         "float_input": {"title": "Float Input", "description": "Input for float values."},
         "bool_input": {"title": "Bool Input", "description": "Input for boolean values."},

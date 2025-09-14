@@ -12,9 +12,8 @@ from aiexec.services.database.models.folder.model import FolderCreate
 from aiexec.services.database.utils import session_getter
 from aiexec.services.deps import get_db_service
 from httpx import AsyncClient
-from sqlalchemy import text
-
 from lfx.graph.utils import log_transaction, log_vertex_build
+from sqlalchemy import text
 
 
 @pytest.fixture(scope="module")

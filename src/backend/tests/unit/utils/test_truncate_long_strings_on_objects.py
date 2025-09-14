@@ -1,6 +1,5 @@
 import pytest
 from aiexec.serialization.constants import MAX_TEXT_LENGTH
-
 from lfx.utils.util_strings import truncate_long_strings
 
 

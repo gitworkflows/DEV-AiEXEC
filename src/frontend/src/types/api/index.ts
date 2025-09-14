@@ -160,7 +160,7 @@ export type changeUser = {
   is_superuser?: boolean;
   password?: string;
   profile_image?: string;
-  optins?: {
+  options?: {
     github_starred?: boolean;
     discord_clicked?: boolean;
     dialog_dismissed?: boolean;
@@ -181,7 +181,7 @@ export type Users = {
   profile_image: string;
   create_at: Date;
   updated_at: Date;
-  optins?: {
+  options?: {
     github_starred?: boolean;
     discord_clicked?: boolean;
     dialog_dismissed?: boolean;

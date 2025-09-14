@@ -278,7 +278,7 @@ class TestFastAPIAppCreation:
         def verbose_print(msg):
             pass  # Real function
 
-        with pytest.raises(ValueError, match="graphs and metas must contain the same keys"):
+        with pytest.raises(ValueError, match=r"graphs and metas must contain the same keys"):
             create_multi_serve_app(root_dir=root_dir, graphs=graphs, metas=metas, verbose_print=verbose_print)
 
 
@@ -361,7 +361,7 @@ class TestFastAPIEndpoints:
         mock_execute.side_effect = Exception("Execution failed")
 
         # Test that the exception would be raised properly
-        with pytest.raises(Exception, match="Execution failed"):
+        with pytest.raises(Exception, match=r"Execution failed"):
             await mock_execute(self.real_graph, "test input")
 
     def test_flow_info_endpoint(self):

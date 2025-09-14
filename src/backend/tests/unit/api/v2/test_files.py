@@ -13,10 +13,10 @@ from aiexec.services.database.models.user.model import User, UserRead
 from aiexec.services.deps import get_db_service
 from asgi_lifespan import LifespanManager
 from httpx import ASGITransport, AsyncClient
+from lfx.services.deps import session_scope
 from sqlalchemy.orm import selectinload
 from sqlmodel import select
 
-from lfx.services.deps import session_scope
 from tests.conftest import _delete_transactions_and_vertex_builds
 
 

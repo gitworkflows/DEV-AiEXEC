@@ -75,7 +75,7 @@ def test_sort_up_to_vertex_n_is_start(graph):
     vertex_id = "N"
 
     result = utils.sort_up_to_vertex(graph, vertex_id, is_start=True)
-    # Result shoud be all the vertices
+    # Result should be all the vertices
     assert set(result) == set(graph.keys())
 
 
@@ -138,7 +138,7 @@ def test_sort_up_to_vertex_a(graph):
 def test_sort_up_to_vertex_invalid_vertex(graph):
     vertex_id = "7"
 
-    with pytest.raises(ValueError, match="Parent node map is required to find the root of a group node"):
+    with pytest.raises(ValueError, match=r"Parent node map is required to find the root of a group node"):
         utils.sort_up_to_vertex(graph, vertex_id)
 
 
@@ -492,7 +492,7 @@ def test_chat_inputs_at_start():
 
     # Test that multiple chat inputs raise an error
     vertices_layers_multiple = [["ChatInput1", "B"], ["ChatInput2", "C"], ["D"]]
-    with pytest.raises(ValueError, match="Only one chat input is allowed in the graph"):
+    with pytest.raises(ValueError, match=r"Only one chat input is allowed in the graph"):
         utils.sort_chat_inputs_first(vertices_layers_multiple, get_vertex_predecessors)
 
 

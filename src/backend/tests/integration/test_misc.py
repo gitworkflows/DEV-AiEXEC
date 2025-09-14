@@ -4,7 +4,6 @@ import pytest
 from aiexec.initial_setup.setup import load_starter_projects
 from fastapi import status
 from httpx import AsyncClient
-
 from lfx.graph.schema import RunOutputs
 from lfx.load.load import arun_flow_from_json
 

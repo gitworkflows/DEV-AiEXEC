@@ -6,9 +6,9 @@ from uuid import UUID
 import pytest
 from aiexec.services.database.models.flow import FlowUpdate
 from httpx import codes
-
 from lfx.log.logger import logger
 from lfx.memory import aget_messages
+
 from tests.unit.build_utils import build_flow, consume_and_assert_stream, create_flow, get_build_events
 
 

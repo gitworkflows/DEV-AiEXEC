@@ -69,7 +69,7 @@ class TestSysPath:
             raise ValueError(msg)
 
         # Test that the path is removed even when an exception occurs
-        with pytest.raises(ValueError, match="Test exception"), temporary_sys_path(test_path):
+        with pytest.raises(ValueError, match=r"Test exception"), temporary_sys_path(test_path):
             assert_and_raise_exception()
 
         assert test_path not in sys.path
@@ -101,7 +101,7 @@ class TestModuleLoading:
             script_path = Path(f.name)
 
         try:
-            with pytest.raises(ImportError):
+            with pytest.raises(ImportError, match=r"No module named 'non_existent_module'"):
                 _load_module_from_script(script_path)
         finally:
             script_path.unlink()
@@ -113,7 +113,7 @@ class TestModuleLoading:
             script_path = Path(f.name)
 
         try:
-            with pytest.raises(SyntaxError):
+            with pytest.raises(SyntaxError, match=r"invalid syntax"):
                 _load_module_from_script(script_path)
         finally:
             script_path.unlink()
@@ -139,7 +139,7 @@ class TestGraphValidation:
         """Test validation with wrong type."""
         not_a_graph = {"not": "a graph"}
 
-        with pytest.raises(TypeError, match="Graph object is not a LFX Graph instance"):
+        with pytest.raises(TypeError, match=r"Graph object is not a LFX Graph instance"):
             _validate_graph_instance(not_a_graph)
 
     def test_validate_graph_instance_missing_chat_input(self):
@@ -151,7 +151,7 @@ class TestGraphValidation:
         chat_output = ChatOutput()
         graph = Graph(start=chat_output, end=chat_output)
 
-        with pytest.raises(ValueError, match="Graph does not contain any ChatInput component"):
+        with pytest.raises(ValueError, match=r"Graph does not contain any ChatInput component"):
             _validate_graph_instance(graph)
 
     def test_validate_graph_instance_missing_chat_output(self):
@@ -163,7 +163,7 @@ class TestGraphValidation:
         chat_input = ChatInput()
         graph = Graph(start=chat_input, end=chat_input)
 
-        with pytest.raises(ValueError, match="Graph does not contain any ChatOutput component"):
+        with pytest.raises(ValueError, match=r"Graph does not contain any ChatOutput component"):
             _validate_graph_instance(graph)
 
 
@@ -192,7 +192,7 @@ class TestLoadGraphFromScript:
             script_path = Path(f.name)
 
         try:
-            with pytest.raises(RuntimeError, match="No 'graph' variable found"):
+            with pytest.raises(RuntimeError, match=r"No 'graph' variable found"):
                 load_graph_from_script(script_path)
         finally:
             script_path.unlink()
@@ -201,7 +201,7 @@ class TestLoadGraphFromScript:
         """Test error handling for import errors."""
         script_path = Path("/non/existent/script.py")
 
-        with pytest.raises(RuntimeError, match="Error executing script"):
+        with pytest.raises(RuntimeError, match=r"Error executing script"):
             load_graph_from_script(script_path)
 
 

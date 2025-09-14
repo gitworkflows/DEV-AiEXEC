@@ -7,7 +7,6 @@ import pytest
 from aiexec.memory import aget_messages
 from aiexec.services.database.models.flow import FlowCreate
 from httpx import AsyncClient
-
 from lfx.components.data.url import URLComponent
 from lfx.components.input_output import ChatOutput
 from lfx.components.logic import LoopComponent
@@ -20,6 +19,7 @@ from lfx.components.processing import (
 )
 from lfx.graph import Graph
 from lfx.schema.data import Data
+
 from tests.base import ComponentTestBaseWithClient
 from tests.unit.build_utils import build_flow, get_build_events
 

@@ -1,6 +1,6 @@
 import pytest
-
 from lfx.schema.message import Message
+
 from tests.api_keys import get_openai_api_key
 from tests.integration.utils import load_flow_from_src as download_flow_from_github
 from tests.integration.utils import run_json_flow

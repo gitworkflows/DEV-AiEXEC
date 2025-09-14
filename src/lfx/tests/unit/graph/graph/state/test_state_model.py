@@ -71,12 +71,12 @@ class TestCreateStateModel:
 
     # Raises ValueError for invalid field type in tuple-based definitions
     def test_raise_typeerror_for_invalid_field_type_in_tuple(self):
-        with pytest.raises(TypeError, match="Invalid type for field invalid_field"):
+        with pytest.raises(TypeError, match=r"Invalid type for field invalid_field"):
             create_state_model(invalid_field=("not_a_type", "default"))
 
     # Raises ValueError for unsupported value types in keyword arguments
     def test_raise_valueerror_for_unsupported_value_types(self):
-        with pytest.raises(ValueError, match="Invalid value type <class 'int'> for field invalid_field"):
+        with pytest.raises(ValueError, match=r"Invalid value type <class 'int'> for field invalid_field"):
             create_state_model(invalid_field=123)
 
     # Handles empty keyword arguments gracefully
@@ -103,7 +103,7 @@ class TestCreateStateModel:
                 return 123
 
         mock_component = MockComponent()
-        with pytest.raises(ValueError, match="get_output_by_method"):
+        with pytest.raises(ValueError, match=r"get_output_by_method"):
             create_state_model(method_one=mock_component.method_one, method_two=mock_component.method_two)
 
     @pytest.mark.asyncio

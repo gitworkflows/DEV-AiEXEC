@@ -300,7 +300,7 @@ def test_init_with_invalid_list():
         {"name": "John", "age": 30},
         Data(data={"name": "Jane", "age": 25}),  # Mixed types should fail
     ]
-    with pytest.raises(ValueError, match="List items must be either all Data objects or all dictionaries"):
+    with pytest.raises(ValueError, match=r"List items must be either all Data objects or all dictionaries"):
         DataFrame(invalid_data)
 
 

@@ -7,9 +7,9 @@ import pytest
 from aiexec.helpers.base_model import build_model_from_schema
 from aiexec.inputs.inputs import TableInput
 from langchain_openai import ChatOpenAI
+from lfx.components.processing.structured_output import StructuredOutputComponent
 from pydantic import BaseModel
 
-from lfx.components.processing.structured_output import StructuredOutputComponent
 from tests.base import ComponentTestBaseWithoutClient
 from tests.unit.mock_language_model import MockLanguageModel
 

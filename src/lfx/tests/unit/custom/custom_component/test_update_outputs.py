@@ -76,7 +76,7 @@ class TestComponentOutputs:
         frontend_node = {"outputs": [{"invalid_field": "value"}]}
 
         # Test validation fails for invalid output
-        with pytest.raises(ValueError, match="Invalid output: 1 validation error for Output"):
+        with pytest.raises(ValueError, match=r"Invalid output: 1 validation error for Output"):
             await component.run_and_validate_update_outputs(
                 frontend_node=frontend_node, field_name="some_field", field_value="some_value"
             )
@@ -242,7 +242,7 @@ class TestComponentOutputs:
             "outputs": [{"name": "test", "type": "str", "method": "nonexistent_method", "display_name": "Test"}]
         }
 
-        with pytest.raises(AttributeError, match="nonexistent_method not found in TestComponent"):
+        with pytest.raises(AttributeError, match=r"nonexistent_method not found in TestComponent"):
             await component.run_and_validate_update_outputs(
                 frontend_node=invalid_node, field_name="test", field_value=True
             )
@@ -250,7 +250,7 @@ class TestComponentOutputs:
         # Test missing method case
         invalid_node = {"outputs": [{"name": "test", "type": "str", "display_name": "Test"}]}
 
-        with pytest.raises(ValueError, match="Output test does not have a method"):
+        with pytest.raises(ValueError, match=r"Output test does not have a method"):
             await component.run_and_validate_update_outputs(
                 frontend_node=invalid_node, field_name="test", field_value=True
             )

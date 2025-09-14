@@ -33,6 +33,10 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# First, copy the required packages for development installation
+COPY ./src/lfx /app/src/lfx
+COPY ./src/backend/base /app/src/backend/base
+
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=README.md,target=README.md \
@@ -42,6 +46,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=src/backend/base/pyproject.toml,target=src/backend/base/pyproject.toml \
     uv sync --frozen --no-install-project --no-editable --extra postgresql
 
+# Now copy the rest of the source code
 COPY ./src /app/src
 
 COPY src/frontend /tmp/src/frontend
